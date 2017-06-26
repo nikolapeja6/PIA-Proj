@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><ui:insert name="title">Title</ui:insert></title>
+        <style>
+            *{
+                font-family: cambria;
+            }
+            .cont {
+                margin-top:  30px;
+                margin-left: 20px;
+                margin-right: 20px;
+                overflow: hidden;
+                width: auto;
+                
+            }
+
+            .footer{
+                position: absolute;
+                height: 30px;
+               
+                margin-top: 50px;
+               
+                bottom: 0;
+                left:0;
+                right:0;
+                background-color: #343131;
+                color: #EEEEEE;
+                text-align: center;
+                padding-top :5px;
+                padding-left: 5px;
+                padding-right: 5px;
+                padding-bottom: 5px;
+                
+            }
+            
+            table {
+    width: 100%;
+}
+td {
+    vertical-align: top;
+}
+.d1 {
+    text-align: left;
+}
+.d2 {
+    text-align:center;
+}
+.d3 {
+    text-align:right;
+}
+.copy {
+    visibility: hidden;
+}
+.copy, .d3 {
+    white-space: nowrap;
+}
+
+        </style>
+    </h:head>
+
+    <h:body>
+
+        <h:form>
+            <p:growl id="error" showDetail="true" sticky="false" showSummary="false" />
+            
+            <p:menubar>
+
+                <p:menuitem value="#{labels.menu_start_label}" icon="ui-icon-home" url="index.xhtml" rendered="#{user.isLoggedIn() == false}"/>
+
+                <p:menuitem value="#{labels.menu_my_agenda_label}" icon="ui-icon-note" url="" rendered="#{user.isRegisteredUser()}"/>
+
+                <p:menuitem value="#{labels.menu_messages_label}s" icon="ui-icon-mail-closed" action="messages.xhtml" rendered="#{user.isRegisteredUser()}"/>
+                <p:menuitem value="#{labels.menu_search_label}" icon="ui-icon-search"   action="search.xhtml"/>
+
+
+                <f:facet name="options">
+                    <p:commandButton  value="#{labels.menu_logout_label}" action="#{user.logout}" icon="ui-icon-extlink" rendered="#{user.isLoggedIn()}" />
+                </f:facet>
+            </p:menubar>
+        </h:form>
+
+
+        <div class="cont">
+            <h1><ui:insert name="title">Title</ui:insert></h1>
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+        <div class="footer">
+            <h:outputText escape="false" value="#{labels.footer}"/>
+        </div>
+
+
+
+    </h:body>
+
+</html>

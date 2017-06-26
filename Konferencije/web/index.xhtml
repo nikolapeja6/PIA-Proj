@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{labels.start_title}</title>
+        <style>
+            *{
+                font-family: cambria;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        
+        <h1>#{labels.welcome_start_title}</h1>
+        
+        <p>#{labels.welcome_start_text}</p>
+        <p:accordionPanel activeIndex="-1" id="panel">
+            <p:tab title="#{labels.login_title}">
+                
+                
+                <h:form>
+                    <p:growl  showDetail="true"  autoUpdate="true"/>  
+                   <p:messages id="error_register1" showDetail="true"  />
+            <h:panelGrid columns="2" cellpadding="10">
+                    <f:facet name="header">
+                    #{labels.login_title}
+                </f:facet>
+                
+                <h:column>
+                    <p>#{labels.username_label}</p>
+                    <p>#{labels.password_label}</p>
+                </h:column>
+                <h:column>
+                    <p><p:inputText id="username" value="#{user.username}" required="true" requiredMessage="#{labels.need_username_message}"    />
+                    </p>
+                    
+                    <p><p:password id="pass" value="#{user.password}" required="true" requiredMessage="#{labels.need_password_message}"  >
+                        <f:validator validatorId="pas_val" />
+                        </p:password>
+                  
+                    </p>
+                </h:column>
+                
+            
+            
+                <p:commandButton   value="#{labels.login_button}"  styleClass="ui-priority-primary" action="#{user.login}"/>
+              
+                
+                
+            </h:panelGrid>
+                    </h:form>
+        </p:tab>
+            <p:tab title="#{labels.register_title}" id="register">
+            <h:form >
+            
+            <h:panelGrid columns="2" style="border-colapse: separate; border-spacing: 5px" cellpadding="5" >
+                 <f:facet name="header">
+                    #{labels.register_title}
+                </f:facet>
+                                    
+                     <h:outputText value="#{labels.first_name_label}*" />
+                     <p:inputText value="#{user.first_name}" required="true"/>
+                     
+                     <h:outputText value="#{labels.last_name_label}*" />
+                     <p:inputText value="#{user.last_name}" required="true"/>
+                     
+                    <h:outputText value="#{labels.username_label}*" />
+                    <p:inputText value="#{user.username}" required="true" requiredMessage="#{labels.need_username_message}" />
+                    
+                    <h:outputText value="#{labels.email_label}*" />
+                    <p:inputText value="#{user.email}" required="true">
+                        <f:validateRegex pattern="^[A-Za-z0-9!#\$%'\*\+\-/=\?\^_`\{|\}~\.]+@[A-Za-z0-9\.]+$"/>
+                    </p:inputText>
+                    
+                    <h:outputText value="#{labels.institution_label}*" />
+                    <p:inputText value="#{user.institution}" required="true"/>
+                    
+                    <h:outputText value="#{labels.password_label}*" />
+                    <p:password  value="#{user.password}" required="true" match="reg_password">
+                       <f:validator validatorId="pas_val" />
+
+                    </p:password>
+                    
+                    <h:outputText value="#{labels.confirm_password_label}*" />
+                    <p:password id="reg_password" required="true" />
+                    
+                    <h:outputText value="#{labels.gender_label}*" />
+                     <p:selectOneMenu value="#{user.gender}">
+                        <f:selectItem itemLabel="Other" itemValue="o" />
+                        <f:selectItem itemLabel="Male" itemValue="m"  />
+                        <f:selectItem itemLabel="Female" itemValue="f" />
+                    </p:selectOneMenu>
+                    
+                    <h:outputText value="#{labels.t_size_label}*" />
+                    <p:selectOneMenu value="#{user.t_size}">
+                        <f:selectItem itemLabel="S" itemValue="s"  />
+                        <f:selectItem itemLabel="M" itemValue="m" />
+                        <f:selectItem itemLabel="L" itemValue="l" />
+                        <f:selectItem itemLabel="XL" itemValue="xl" />
+                        <f:selectItem itemLabel="XXL" itemValue="xxl" />
+                    </p:selectOneMenu>
+                    
+                    <h:outputText value="#{labels.linkedin_label}" />
+                    <p:inputText value="#{user.linkedin}">
+                        <f:validateRegex pattern="(^.*linkedin\.com/.*$)|(^$)"/>
+                    </p:inputText>
+
+                                    
+                    <p:row>
+                        <p:fileUpload value="#{user.file}" mode="simple" skinSimple="true"  label="#{labels.profile_picture_label}" />
+                    </p:row>
+               
+                        <br/>
+                   <p:row >
+                       <p:commandButton  value="#{labels.register_label}" ajax="true"  styleClass="ui-priority-primary"  action="#{user.register}" /> 
+                      </p:row>
+       
+            </h:panelGrid>
+           </h:form>
+
+        </p:tab>
+            <p:tab title="#{labels.change_password_title}">
+           <h:form>
+                    
+            <p:growl showDetail="true" sticky="true" autoUpdate="true"/>  
+
+            <h:panelGrid columns="2" cellpadding="10">
+                 <f:facet name="header">
+                    #{labels.change_password_title}
+                </f:facet>
+                
+                <h:outputText value="#{labels.username_label}" />
+                <p:inputText value="#{user.username}" required="true" requiredMessage="#{labels.need_username_message}"/>
+                
+                <h:outputText value="#{labels.old_password_label}" />
+                <p:password value="#{user.password}" required="true" requiredMessage="#{labels.need_password_message}" />
+                
+                <h:outputText value="#{labels.new_password_label}" />
+                <p:password id="new_password" value="#{user.newPassword}"   match="new_password1" required="true"  >
+                   <f:validator validatorId="pas_val" />
+ 
+                </p:password>
+                
+                <h:outputText value="#{labels.confirm_new_password_label}" />
+                <p:password value="#{user.newPassword}" id="new_password1" />
+                
+                 <p:row>
+                     <p:commandButton  value="#{labels.change_password_label}"  styleClass="ui-priority-primary" action="#{user.changePassword}"/> 
+                 </p:row>
+                
+            </h:panelGrid>
+         </h:form>
+
+        </p:tab>
+            
+           
+            <p:tab title="#{labels.skip_login_label}">
+                 <h:form>
+                <p>#{labels.skip_login_text}</p>
+                
+                <h:commandLink action="guestMain" value="#{labels.skip_login_label}"/>
+                </h:form>
+            </p:tab>
+    </p:accordionPanel>
+        
+    </h:body>
+</html>
+

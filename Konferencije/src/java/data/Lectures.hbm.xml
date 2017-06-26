@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 26, 2017 8:01:16 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="data.Lectures" table="lectures" catalog="conferences" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="sessions" class="data.Sessions" fetch="select">
+            <column name="session" not-null="true" />
+        </many-to-one>
+        <property name="title" type="string">
+            <column name="title" length="30" not-null="true" />
+        </property>
+        <property name="start" type="time">
+            <column name="start" length="8" not-null="true" />
+        </property>
+        <property name="duration" type="int">
+            <column name="duration" not-null="true">
+                <comment>minutes</comment>
+            </column>
+        </property>
+        <set name="authors" table="author" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="lecture" not-null="true" />
+            </key>
+            <one-to-many class="data.Author" />
+        </set>
+    </class>
+</hibernate-mapping>

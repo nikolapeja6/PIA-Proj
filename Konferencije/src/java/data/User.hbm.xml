@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 26, 2017 8:01:16 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="data.User" table="user" catalog="conferences" optimistic-lock="version">
+        <id name="username" type="string">
+            <column name="username" length="30" />
+            <generator class="assigned" />
+        </id>
+        <property name="passwrd" type="string">
+            <column name="passwrd" length="14" not-null="true" />
+        </property>
+        <property name="firstName" type="string">
+            <column name="first_name" length="30" not-null="true" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="30" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="50" not-null="true" />
+        </property>
+        <property name="institution" type="string">
+            <column name="institution" length="50" not-null="true" />
+        </property>
+        <property name="gender" type="string">
+            <column name="gender" length="1" not-null="true">
+                <comment>m - male, f - female, o - other</comment>
+            </column>
+        </property>
+        <property name="profilePicture" type="binary">
+            <column name="profile_picture" />
+        </property>
+        <property name="TSize" type="string">
+            <column name="t_size" length="3" not-null="true">
+                <comment>s, m, l, xl, xxl</comment>
+            </column>
+        </property>
+        <property name="linkedin" type="string">
+            <column name="linkedin" length="65535" />
+        </property>
+        <property name="type" type="string">
+            <column name="type" length="1" not-null="true">
+                <comment>u - user, m - moderator, a - admin</comment>
+            </column>
+        </property>
+        <set name="messagesesForSender" table="messages" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sender" length="30" not-null="true" />
+            </key>
+            <one-to-many class="data.Messages" />
+        </set>
+        <set name="authors" table="author" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="username" length="30" />
+            </key>
+            <one-to-many class="data.Author" />
+        </set>
+        <set name="applieds" table="applied" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="username" length="30" not-null="true" />
+            </key>
+            <one-to-many class="data.Applied" />
+        </set>
+        <set name="messagesesForReceiver" table="messages" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="receiver" length="30" not-null="true" />
+            </key>
+            <one-to-many class="data.Messages" />
+        </set>
+        <set name="favouritesForUser" table="favourite" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user" length="30" not-null="true" />
+            </key>
+            <one-to-many class="data.Favourite" />
+        </set>
+        <set name="favouritesForContact" table="favourite" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="contact" length="30" not-null="true" />
+            </key>
+            <one-to-many class="data.Favourite" />
+        </set>
+    </class>
+</hibernate-mapping>

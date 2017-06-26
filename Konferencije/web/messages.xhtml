@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="WEB-INF/template.xhtml">
+            <ui:define name="title">
+                Messages
+            </ui:define>
+
+            <ui:define name="content">
+                <h3>Send message</h3>
+                <div>
+                    <h:form>
+
+                        <p:selectOneMenu  id="to_whome" value="#{user.send_to}">
+                            <f:selectItems value="#{user.getUsers()}" var="u" />
+                        </p:selectOneMenu>
+                        <br/>
+                        <p:inputTextarea  value="#{user.message_text}" rows="6" cols="50" />
+                        <br/>
+
+                        <p:commandButton value="Send" action="#{user.send}" />
+                    </h:form>
+                </div>
+
+                <br/>
+                <br/>
+
+                <h3>History</h3>
+               
+                    <p:repeat value="#{user.myMessages()}" var="m">
+                        <h:panelGrid columns="2" style="max-width: 800px" >
+
+                            <p:outputPanel style="max-width: 250px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="From:" />
+                                    <h:outputText value="#{m.userBySender.username}" style="font-weight: bold"/>
+
+                                    <h:outputText value="To:" />
+                                    <h:outputText value="#{m.userByReceiver.username}" style="font-weight: bold"/>
+                                    
+                                    <h:outputText value="Time:" />
+                                    <h:outputText value="#{m.timestamp}" style="font-weight: bold"/>
+
+                                </h:panelGrid>
+                            </p:outputPanel >
+                            
+                            <h:outputText value="#{m.text}" style="font-weight: bold" />
+                            
+                        </h:panelGrid>
+                        <hr />
+                    </p:repeat>
+               
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
