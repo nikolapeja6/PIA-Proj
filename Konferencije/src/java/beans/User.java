@@ -472,12 +472,9 @@ public class User implements Serializable{
          return helper.fields();
      }
      
-     public String search()throws IOException{
+     public void search()throws IOException{
          System.out.println("search called");
          search_results = helper.search(search_field, search_from, search_to, search_name, search_place);
-         
-         FacesContext.getCurrentInstance().getExternalContext().redirect("search.xhtml");
-         return null;
      }
      
      public String apply(data.Conferences con)throws IOException{
@@ -514,9 +511,7 @@ public class User implements Serializable{
      
      
      public void send()throws IOException{
-         helper.send_message(username, send_to, message_text);
-         FacesContext.getCurrentInstance().getExternalContext().redirect("messages.xhtml");
-         
+         helper.send_message(username, send_to, message_text);      
      
      }
      

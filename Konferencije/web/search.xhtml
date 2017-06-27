@@ -52,7 +52,7 @@
 
                         </p:panelGrid>
                         <br/>
-                        <p:commandButton value="Search" action="#{user.search}"/>
+                        <p:commandButton value="Search" action="#{user.search}" ajax="false"/>
 
                     </div>
 
@@ -83,7 +83,7 @@
                             </p:column>
 
                             <p:column>
-                                <p:commandLink value="Apply" action="#{user.apply(c)}"/>
+                                <p:commandLink value="Apply" action="#{user.apply(c)}" />
                             </p:column>
 
 
