@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="WEB-INF/template.xhtml">
+            <ui:define name="title">Conference Agenda</ui:define>
+
+            <ui:define name="content">
+
+                <h2>#{user.getConferenceData()}</h2>
+
+                <p:repeat value="#{user.getSessions()}" var="s">
+
+                    <h3>#{s.name } [hall]</h3>
+                    <h4>#{s.date}</h4>
+
+                    <p:dataTable value="#{user.sortLectures(s.id)}" var="l" style="text-align: center;  max-width: 1000px ">
+                        <p:column headerText="Title">
+                            #{l.title}
+                        </p:column>
+
+                        <p:column headerText="Start">
+                            #{l.start}
+                        </p:column>
+
+                        <p:column headerText="Duration">
+                            #{l.duration}
+                        </p:column>
+
+                        <p:column headerText="Authors">
+                            <table>
+                                <p:repeat value="#{user.getAuthors(l.id)}" var="a">
+                                    <td>#{a.name}</td>
+                                    <td>pdf</td>
+                                    <td>ppt</td>
+                                </p:repeat>
+                            </table>
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
+                    <br/>
+                    
+                      <h:form>
+                                <p:commandButton value="Add to My Agenda" action="#{user.addToMyAgenda(s.id)}" ajax="false"/>
+                       </h:form>
+
+                    <hr />
+                </p:repeat>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

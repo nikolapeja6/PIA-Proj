@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="WEB-INF/template.xhtml">
+            <ui:define name="title"> Attending</ui:define>
+            
+            
+            <ui:define name="content">
+                            <h:form>
+
+                
+                <h3>#{user.getConferenceData()}</h3>
+                
+                <p:dataTable value="#{user.getUsersForConference()}" var="u">
+                    
+                    <p:column headerText="username">
+                        #{u.username}
+                    </p:column>
+                    
+                     <p:column headerText="Name">
+                            problem
+                    </p:column>
+                    
+                     <p:column headerText="Institution">
+                        problem
+                    </p:column>
+                    
+                     <p:column headerText="Linkedin">
+                         problem
+                    </p:column>
+                    
+                      <p:column headerText="Add to Favourite" >
+                         <p:commandButton value="Add"  action="#{user.favourite(u.username)}" ajax="false"/>
+                    </p:column>
+                    
+                     <p:column >
+                         <p:commandButton value="Message Me"  action="#{user.message_user(u.username)}"/>
+                    </p:column>
+                    
+                  
+                    
+                    
+                    
+                </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

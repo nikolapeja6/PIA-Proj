@@ -20,7 +20,7 @@
                     <h:form>
 
                         <p:selectOneMenu  id="to_whome" value="#{user.send_to}">
-                            <f:selectItems value="#{user.getUsers()}" var="u" />
+                            <f:selectItems value="#{user.getAvailableUsers()}" var="u" />
                         </p:selectOneMenu>
                         <br/>
                         <p:inputTextarea  value="#{user.message_text}" rows="6" cols="50" />

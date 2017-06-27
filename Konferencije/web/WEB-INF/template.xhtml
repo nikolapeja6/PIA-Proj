@@ -73,9 +73,9 @@ td {
             
             <p:menubar>
 
-                <p:menuitem value="#{labels.menu_start_label}" icon="ui-icon-home" url="index.xhtml" rendered="#{user.isLoggedIn() == false}"/>
+                <p:menuitem value="#{labels.menu_start_label}" icon="ui-icon-home" action="index.xhtml" rendered="#{user.isLoggedIn() == false}"/>
 
-                <p:menuitem value="#{labels.menu_my_agenda_label}" icon="ui-icon-note" url="" rendered="#{user.isRegisteredUser()}"/>
+                <p:menuitem value="#{labels.menu_my_conferences_label}" icon="ui-icon-note" action="conferences.xhtml" rendered="#{user.isRegisteredUser()}"/>
 
                 <p:menuitem value="#{labels.menu_messages_label}s" icon="ui-icon-mail-closed" action="messages.xhtml" rendered="#{user.isRegisteredUser()}"/>
                 <p:menuitem value="#{labels.menu_search_label}" icon="ui-icon-search"   action="search.xhtml"/>
@@ -92,6 +92,9 @@ td {
             <h1><ui:insert name="title">Title</ui:insert></h1>
             <ui:insert name="content">Content</ui:insert>
         </div>
+        
+        <br/>
+        <br/>
 
         <div class="footer">
             <h:outputText escape="false" value="#{labels.footer}"/>
