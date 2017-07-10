@@ -1,5 +1,5 @@
 package data;
-// Generated Jun 26, 2017 8:01:15 PM by Hibernate Tools 4.3.1
+// Generated Jul 7, 2017 7:28:47 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -28,6 +28,7 @@ public class User  implements java.io.Serializable {
      private Set messagesesForReceiver = new HashSet(0);
      private Set favouritesForUser = new HashSet(0);
      private Set favouritesForContact = new HashSet(0);
+     private Set moderators = new HashSet(0);
 
     public User() {
     }
@@ -44,7 +45,7 @@ public class User  implements java.io.Serializable {
         this.TSize = TSize;
         this.type = type;
     }
-    public User(String username, String passwrd, String firstName, String lastName, String email, String institution, String gender, byte[] profilePicture, String TSize, String linkedin, String type, Set messagesesForSender, Set authors, Set applieds, Set messagesesForReceiver, Set favouritesForUser, Set favouritesForContact) {
+    public User(String username, String passwrd, String firstName, String lastName, String email, String institution, String gender, byte[] profilePicture, String TSize, String linkedin, String type, Set messagesesForSender, Set authors, Set applieds, Set messagesesForReceiver, Set favouritesForUser, Set favouritesForContact, Set moderators) {
        this.username = username;
        this.passwrd = passwrd;
        this.firstName = firstName;
@@ -62,6 +63,7 @@ public class User  implements java.io.Serializable {
        this.messagesesForReceiver = messagesesForReceiver;
        this.favouritesForUser = favouritesForUser;
        this.favouritesForContact = favouritesForContact;
+       this.moderators = moderators;
     }
    
     public String getUsername() {
@@ -182,6 +184,13 @@ public class User  implements java.io.Serializable {
     
     public void setFavouritesForContact(Set favouritesForContact) {
         this.favouritesForContact = favouritesForContact;
+    }
+    public Set getModerators() {
+        return this.moderators;
+    }
+    
+    public void setModerators(Set moderators) {
+        this.moderators = moderators;
     }
 
 

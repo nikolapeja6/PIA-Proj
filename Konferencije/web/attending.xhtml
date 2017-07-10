@@ -25,15 +25,15 @@
                     </p:column>
                     
                      <p:column headerText="Name">
-                            problem
+                            #{u.firstName} #{u.lastName}
                     </p:column>
                     
                      <p:column headerText="Institution">
-                        problem
+                        #{u.institution}
                     </p:column>
                     
                      <p:column headerText="Linkedin">
-                         problem
+                         <p:commandLink value="#{u.linkedin != null?u.linkedin:'/'}" disabled="#{u.linkedin == null}" action="#{u.linkedin}"/>
                     </p:column>
                     
                       <p:column headerText="Add to Favourite" >
@@ -41,7 +41,7 @@
                     </p:column>
                     
                      <p:column >
-                         <p:commandButton value="Message Me"  action="#{user.message_user(u.username)}"/>
+                         <p:commandButton value="Message Him"  action="#{user.message_user(u.username)}"/>
                     </p:column>
                     
                   

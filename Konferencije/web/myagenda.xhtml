@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="WEB-INF/template.xhtml">
+            <ui:define name="title">
+                My Agenda
+            </ui:define>
+            
+            <ui:define name="content">
+                
+                <h:form>
+                <p:dataTable value="#{user.getMyAgendaA()}" var="a" style="text-align: center; align-content: center; vertical-align: top ">
+                    
+                    <p:column headerText="Conference" style="vertical-align: middle">
+                        #{user.getConferenceName(a.applied.conferences.id)}
+                    </p:column>
+                    
+                    <p:column headerText="Session" style="vertical-align: middle">
+                        #{a.sessions.name}
+                    </p:column>
+                    
+                    <p:column headerText="Date" style="vertical-align: middle">
+                        #{a.sessions.date}
+                    </p:column>
+                    
+                    <p:column headerText="Liked" style="vertical-align: middle">
+                        <p:triStateCheckbox value="#{a.liked}"  disabled="true" /> 
+                    </p:column>
+                    
+                     <p:column headerText="Reted" style="vertical-align: middle">
+                         <p:rating value="#{a.grade}" readonly="true" />
+                    </p:column>
+                    
+                    <p:column headerText="Comment">
+                        <p:inputTextarea  autoResize="true" value="#{a.comment}" disabled="true" />
+                    </p:column>
+                    
+                    <p:column headerText="Edit (Upload)" style="vertical-align: middle">
+                        <p:commandButton value="Edit" action="#{user.editSessionA(a.id, a.sessions.id)}"/>
+                    </p:column>
+                    
+                    
+                    
+                </p:dataTable>
+                    
+                    </h:form>
+            </ui:define>
+            
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -13,42 +13,48 @@
             <ui:define name="title">My Conferences</ui:define>
 
             <ui:define name="content">
-                
+
                 <h:form>
-                <p:dataTable value="#{user.myConferences()}" var="c" style="text-align: center; border: 2px; ">
-                    <f:facet name="title">Conferences I Applied For</f:facet>
+                    <p:dataTable value="#{user.myConferences()}" var="c" style="text-align: center; border: 2px; ">
+                        <f:facet name="title">Conferences I Applied For</f:facet>
 
-                    <p:column headerText="ID">
-                        #{c.id}
-                    </p:column>
-                     <p:column headerText="Name">
-                       xxx
-                    </p:column>
-                
+                        <p:column headerText="ID">
+                            #{c.id}
+                        </p:column>
+                        <p:column headerText="Name">
+                            #{c.name}
+                        </p:column>
 
-                    <p:column headerText="Field">
-                       yyy
-                    </p:column>
-                    
-                    <p:column headerText="Conference Agenda">
-                        <h:commandLink value="Agenda" action="#{user.agenda(c.id)}"/>
-                    </p:column>
-                    
-                    <p:column headerText="My Agenda">
-                        <h:commandLink value="My Agenda" action="#{user.my_agenda(c.id)}"/>
-                    </p:column>
 
-      
-                    <p:column >
-                        <p:commandLink value="Gallerie" action="#{user.gallerie(c.id)}"/>
-                    </p:column>
+                        <p:column headerText="Field">
+                            #{c.field}
+                        </p:column>
 
-                    <p:column >
-                        <p:commandLink value="Who's attending?" action="#{user.attending(c.id)}"/>
-                    </p:column>
-                   
-                </p:dataTable>
-              </h:form>
+                        <p:column headerText="Conference Agenda">
+                            <h:commandLink value="Agenda" action="#{user.agenda(c.id)}"/>
+                        </p:column>
+
+                        <p:column headerText="My Agenda">
+                            <h:commandLink value="My Agenda" action="#{user.my_agenda(c.id)}"/>
+                        </p:column>
+
+
+                        <p:column >
+                            <p:commandLink value="Gallery" action="#{user.gallerie(c.id)}"/>
+                        </p:column>
+
+                        <p:column >
+                            <p:commandLink value="Who's attending?" action="#{user.attending(c.id)}"/>
+                        </p:column>
+
+                        <p:column >
+                            <a class="twitter-share-button" href="#{user.getTwitterString(c.id)}" target="_blank"> Tweet</a>
+                        </p:column>
+
+
+
+                    </p:dataTable>
+                </h:form>
 
 
             </ui:define>

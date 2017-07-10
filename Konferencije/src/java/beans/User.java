@@ -9,8 +9,12 @@ import data.Conferences;
 import data.Lectures;
 import data.Messages;
 import data.util.Helper;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -28,6 +32,10 @@ import org.primefaces.model.UploadedFile;
 import java.util.Date;
 import java.util.Set;
 import javax.faces.bean.ApplicationScoped;
+import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -46,8 +54,9 @@ public class User implements Serializable {
     private String gender;
     private String t_size;
     private String linkedin;
-    private UploadedFile file;
     private String type;
+    private UploadedFile file;
+
     private byte[] picture;
 
     private String newPassword;
@@ -66,6 +75,204 @@ public class User implements Serializable {
     private String message_text;
 
     private int selected_conference_id;
+
+    private java.util.Date selected_date = null;
+    private int selected_session_id = -1;
+
+    private int selected_agenda_id = -1;
+    private int liked;
+    private String comment;
+    private int rating;
+    private List<UploadedFile> pictures;
+
+    private String addConferenceName;
+    private java.util.Date addConferenceStart;
+    private java.util.Date addConferenceEnd;
+    private int addConferenceLocation;
+    private java.util.Date addConferenceDue;
+    private String addConferenceField;
+
+    private String selectedModerator;
+    private int selectedConference;
+
+    private String newSessionName;
+    private int newSessionHall;
+
+    private String newLectureName;
+    private java.util.Date newLectureStartTime;
+    private int newLectureDuration;
+
+    private int selected_lecture_id;
+    private String selected_user;
+    private String selected_date_string;
+
+    public String getSelected_date_string() {
+        return selected_date_string;
+    }
+
+    public void setSelected_date_string(String selected_date_string) {
+        this.selected_date_string = selected_date_string;
+    }
+
+    public int getSelected_lecture_id() {
+        return selected_lecture_id;
+    }
+
+    public void setSelected_lecture_id(int selected_lecture_id) {
+        this.selected_lecture_id = selected_lecture_id;
+    }
+
+    public String getSelected_user() {
+        return selected_user;
+    }
+
+    public void setSelected_user(String selected_user) {
+        this.selected_user = selected_user;
+    }
+
+    public String getNewLectureName() {
+        return newLectureName;
+    }
+
+    public void setNewLectureName(String newLectureName) {
+        this.newLectureName = newLectureName;
+    }
+
+    public Date getNewLectureStartTime() {
+        return newLectureStartTime;
+    }
+
+    public void setNewLectureStartTime(Date newLectureStartTime) {
+        this.newLectureStartTime = newLectureStartTime;
+    }
+
+    public int getNewLectureDuration() {
+        return newLectureDuration;
+    }
+
+    public void setNewLectureDuration(int newLectureDuration) {
+        this.newLectureDuration = newLectureDuration;
+    }
+
+    public String getNewSessionName() {
+        return newSessionName;
+    }
+
+    public void setNewSessionName(String newSessionName) {
+        this.newSessionName = newSessionName;
+    }
+
+    public int getNewSessionHall() {
+        return newSessionHall;
+    }
+
+    public void setNewSessionHall(int newSessionHall) {
+        this.newSessionHall = newSessionHall;
+    }
+
+    public String getSelectedModerator() {
+        return selectedModerator;
+    }
+
+    public void setSelectedModerator(String selectedModerator) {
+        this.selectedModerator = selectedModerator;
+    }
+
+    public int getSelectedConference() {
+        return selectedConference;
+    }
+
+    public void setSelectedConference(int selectedConference) {
+        this.selectedConference = selectedConference;
+    }
+
+    public String getAddConferenceField() {
+        return addConferenceField;
+    }
+
+    public void setAddConferenceField(String addConferenceField) {
+        this.addConferenceField = addConferenceField;
+    }
+
+    public Date getAddConferenceDue() {
+        return addConferenceDue;
+    }
+
+    public void setAddConferenceDue(Date addConferenceDue) {
+        this.addConferenceDue = addConferenceDue;
+    }
+
+    public String getAddConferenceName() {
+        return addConferenceName;
+    }
+
+    public void setAddConferenceName(String addConferenceName) {
+        this.addConferenceName = addConferenceName;
+    }
+
+    public Date getAddConferenceStart() {
+        return addConferenceStart;
+    }
+
+    public void setAddConferenceStart(Date addConferenceStart) {
+        this.addConferenceStart = addConferenceStart;
+    }
+
+    public Date getAddConferenceEnd() {
+        return addConferenceEnd;
+    }
+
+    public void setAddConferenceEnd(Date addConferenceEnd) {
+        this.addConferenceEnd = addConferenceEnd;
+    }
+
+    public int getAddConferenceLocation() {
+        return addConferenceLocation;
+    }
+
+    public void setAddConferenceLocation(int addConferenceLocation) {
+        this.addConferenceLocation = addConferenceLocation;
+    }
+
+    public int getSelected_agenda_id() {
+        return selected_agenda_id;
+    }
+
+    public void setSelected_agenda_id(int selected_agenda_id) {
+        this.selected_agenda_id = selected_agenda_id;
+    }
+
+    public int getLiked() {
+        return liked;
+    }
+
+    public void setLiked(int liked) {
+        this.liked = liked;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public int getSelected_session_id() {
+        return selected_session_id;
+    }
+
+    public void setSelected_session_id(int selected_session_id) {
+        this.selected_session_id = selected_session_id;
+    }
 
     public int getSelected_conference_id() {
         return selected_conference_id;
@@ -171,10 +378,6 @@ public class User implements Serializable {
             return "";
         }
 
-        if (file != null) {
-            picture = file.getContents();
-        }
-
         if (helper.register(username, password, first_name, last_name, institution, email, gender, t_size, linkedin, picture)) {
             loggedIn = true;
             type = "u";
@@ -192,15 +395,6 @@ public class User implements Serializable {
             return "";
         }
 
-    }
-
-    public UploadedFile getFile() {
-        return file;
-    }
-
-    public void setFile(UploadedFile file) {
-        this.file = file;
-        picture = file.getContents();
     }
 
     public void changePassword() {
@@ -239,14 +433,6 @@ public class User implements Serializable {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
-    }
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
     }
 
     private Helper helper = new Helper();
@@ -293,7 +479,11 @@ public class User implements Serializable {
 
         System.out.println("login finished");
 
-        return "guestMain.xhtml";
+        if (type.equals("u")) {
+            return "guestMain.xhtml";
+        } else {
+            return "adminMain";
+        }
     }
 
     public String getType() {
@@ -310,7 +500,7 @@ public class User implements Serializable {
 
         System.out.println("type = " + type);
         System.out.println("uername = " + username);
-        return loggedIn && ("u".equals(type) || "m".equals(type));
+        return loggedIn && "u".equals(type);
     }
 
     public void setType(String type) {
@@ -413,7 +603,7 @@ public class User implements Serializable {
         this.gender = gender;
         this.t_size = t_size;
         this.linkedin = linedin;
-        this.file = profile_picture;
+
     }
 
     public String getUsername() {
@@ -462,9 +652,14 @@ public class User implements Serializable {
         return helper.fields();
     }
 
-    public void search() throws IOException {
+    public List<data.Conferences> search() {
         System.out.println("search called");
         search_results = helper.search(search_field, search_from, search_to, search_name, search_place);
+        return search_results;
+    }
+
+    public void onlySearch() {
+        search();
     }
 
     public String apply(data.Conferences con) throws IOException {
@@ -478,7 +673,7 @@ public class User implements Serializable {
 
         Date date = new Date(Calendar.getInstance().getTimeInMillis());
 
-        if (con.getApplicationDueDate().after(date)) {
+        if (con.getApplicationDueDate().before(date)) {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Application due date already finished", "The due date for applying to this conference was already finished"));
             return "";
@@ -514,9 +709,10 @@ public class User implements Serializable {
 
         List<data.Messages> ret = new ArrayList<>();
         Set<Messages> tmp = helper.getMessagesForUser(username);
-        if(tmp != null){
-                for(data.Messages m:tmp)
-                    ret.add(m);
+        if (tmp != null) {
+            for (data.Messages m : tmp) {
+                ret.add(m);
+            }
         }
 
         ret.sort(new Message_Comparator());
@@ -536,25 +732,28 @@ public class User implements Serializable {
 
     public String my_agenda(int conference_id) {
 
-        return "";
+        selected_conference_id = conference_id;
+
+        return "myagenda";
     }
 
     public String gallerie(int conference_id) {
-
-        return "";
+        selected_conference_id = conference_id;
+        System.out.println("selected_conference_id = " + selected_conference_id);
+        return "gallery.xhtml";
     }
 
     public String attending(int conference_id) {
 
         selected_conference_id = conference_id;
-        
+
         return "attending.xhtml";
     }
 
     public String getConferenceData() {
         data.Conferences con = helper.getConference(selected_conference_id);
 
-        return "Conference data [not working]"/*con.getName() + " ["+helper.fields()[con.getField()]+"]"*/;
+        return /*"Conference data [not working]"*/ con.getName() + " [" + (Helper.fields[con.getField()].getName()) + "]";
     }
 
     public List<data.Sessions> getSessions() {
@@ -582,39 +781,451 @@ public class User implements Serializable {
         return ret;
     }
 
-    
-    
-    public List<data.Author> getAuthors(int id){
-    
-         return helper.getAuthors(id);
+    public List<data.Author> getAuthors(int id) {
+
+        return helper.getAuthors(id);
     }
-    
-    public void addToMyAgenda(int id){
+
+    public void addToMyAgenda(int id) {
         helper.addToMyAgenda(username, id, selected_conference_id);
-        
+
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Session successfully added to MyAgenda"));
     }
-    
-    public List<data.User> getUsersForConference(){
+
+    public List<data.User> getUsersForConference() {
         return helper.getUsersForConference(selected_conference_id);
     }
-    
-    public String message_user(String username){
+
+    public String message_user(String username) {
         send_to = username;
         return "messages.xhtml";
     }
-    
-    public Set<String> getAvailableUsers(){
+
+    public Set<String> getAvailableUsers() {
         return helper.getAvailableUsers(username);
     }
-    
-    public void favourite(String user){
+
+    public void favourite(String user) {
         FacesContext context = FacesContext.getCurrentInstance();
-     
-        if(helper.addFavourite(username, user))
-               context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "User "+user+" successfully added to Favourites"));
-        else
-               context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "An error occured while adding the user "+user+"to Favourites"));
+
+        if (helper.addFavourite(username, user)) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "User " + user + " successfully added to Favourites"));
+        } else {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "An error occured while adding the user " + user + "to Favourites"));
+        }
     }
+
+    public void file_upload(FileUploadEvent event) {
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        picture = event.getFile().getContents();
+    }
+
+    public List<java.util.Date> getConferenceDays() {
+        return helper.getConferenceDays(selected_conference_id);
+    }
+
+    public List<data.Sessions> getSessionForDay(java.util.Date date) {
+        return helper.getSessionForDay(selected_conference_id, date);
+    }
+
+    public String getConferenceName() {
+
+        if (selected_conference_id <= 0) {
+            return "";
+        }
+        String name = helper.getConference(selected_conference_id).getName();
+        System.out.println("Name = '" + name + "'");
+        return name;
+    }
+
+    public String conrefenceDisplay() {
+        selected_date = null;
+        selected_session_id = -1;
+
+        return "";
+    }
+
+    public String dayDisplay() {
+        selected_session_id = -1;
+
+        return "";
+    }
+
+    public Date getSelected_date() {
+        return selected_date;
+    }
+
+    public void setSelected_date(Date selected_date) {
+        this.selected_date = selected_date;
+        selected_session_id = -1;
+    }
+
+    public String getSessionName() {
+        data.Sessions s = helper.getSession(selected_session_id);
+        return s != null ? s.getName() : "";
+    }
+
+    public boolean displatSessionPanel() {
+        System.out.println("selected_session_id = " + selected_session_id);
+        return (selected_session_id == -1 || selected_session_id == 0) && selected_date != null;
+    }
+
+    public boolean displayImages() {
+        return selected_session_id > 0 && selected_date != null;
+    }
+
+    public List<StreamedContent> getImages() {
+        return helper.getImages(selected_session_id);
+    }
+
+    public List<data.Agenda> getMyAgendaA() {
+        return helper.getMyAgendaA(username);
+    }
+
+    public String getConferenceName(int id) {
+        return helper.getConference(id).getName();
+    }
+
+    public String editSessionA(int agenda_id, int session_id) {
+        selected_agenda_id = agenda_id;
+        selected_session_id = session_id;
+
+        data.Agenda a = helper.getAgenda(agenda_id);
+        liked = a.getLiked();
+        comment = a.getComment();
+        rating = a.getGrade();
+
+        pictures = new ArrayList<>();
+
+        return "edit_agenda";
+    }
+
+    public String getSessionNameA() {
+        return helper.getSession(selected_session_id).getName();
+    }
+
+    public String submitEditAgenda() {
+
+        helper.updateAgenda(selected_agenda_id, liked, rating, comment);
+
+        for (UploadedFile f : pictures) {
+            helper.addPicture(selected_session_id, f.getContents());
+        }
+
+        pictures.clear();
+
+        FacesMessage message = new FacesMessage("Succesfully updated (uploaded) session review.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+        return "myagenda";
+
+    }
+
+    public void upload_pictures(FileUploadEvent event) {
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        pictures.add(event.getFile());
+    }
+
+    public List<data.Conferences> getConferences() {
+        return helper.getConferences();
+    }
+
+    public String removeConference(int id) {
+        FacesMessage message = new FacesMessage("Succesfully removed conference " + helper.getConference(id).getName());
+
+        helper.removeConference(id, username);
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+        return "";
+    }
+
+    public String addConference() {
+        helper.addConference(addConferenceName, addConferenceStart, addConferenceEnd, addConferenceLocation, addConferenceDue, addConferenceField);
+
+        FacesMessage message = new FacesMessage("Succesfully added conference " + addConferenceName);
+
+        addConferenceEnd = addConferenceStart = addConferenceDue = null;
+        addConferenceName = null;
+        addConferenceLocation = 0;
+        addConferenceField = "";
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+        return "adminMain";
+
+    }
+
+    public List<data.Places> getLocations() {
+        return helper.getLocations();
+    }
+
+    public void addModerator() {
+        helper.addModerator(selectedConference, selectedModerator);
+        FacesMessage message = new FacesMessage("Succesfully made " + selectedModerator + " moderator of " + helper.getConference(selectedConference).getName() + " conference");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+    }
+
+    public boolean isModerator() {
+        return helper.isModerator(username);
+    }
+
+    public List<data.Conferences> moderating() {
+        return helper.moderating(username);
+    }
+
+    public String edit_agenda(int id) {
+        selected_conference_id = id;
+
+        return "editAgenda";
+    }
+
+    public String upload(int id) {
+        selected_conference_id = id;
+        pictures = new ArrayList<>();
+
+        return "gallery";
+    }
+
+    public void uploadPictures() {
+        for (UploadedFile f : pictures) {
+            helper.addPicture(selected_session_id, f.getContents());
+        }
+
+        pictures.clear();
+
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Succesfully uploaded pictures to gallery.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+    }
+
+    public List<data.Halls> getHalls() {
+        return helper.getHalls(selected_conference_id);
+    }
+
+    public void addOpeningSession() {
+        FacesMessage message = null;
+
+        if (helper.addSession(selected_conference_id, newSessionName, newSessionHall, 1)) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Succesfully added item to agenda.");
+        } else {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error occured while adding item to agenda.");
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+    }
+
+    public void addClosingSession() {
+        FacesMessage message = null;
+
+        if (helper.addSession(selected_conference_id, newSessionName, newSessionHall, 2)) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Succesfully added item to agenda.");
+        } else {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error occured while adding item to agenda.");
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+    }
+
+    public List<data.Sessions> getUnknownSessions() {
+        return helper.getUnknownSessions(selected_conference_id);
+    }
+
+    public void addLectureSession() {
+        FacesMessage message = null;
+
+        if (helper.addLectureSession(selected_conference_id, selected_session_id, newSessionName, newSessionHall)) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Succesfully added item to agenda.");
+        } else {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error occured while adding item to agenda.");
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void addLecture() {
+        FacesMessage message = null;
+
+        if (helper.addLecture(selected_session_id, newLectureName, newLectureStartTime, newLectureDuration)) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Succesfully added item to agenda.");
+        } else {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error occured while adding item to agenda.");
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+    }
+
+    public void addWorkshop() {
+        FacesMessage message = null;
+
+        if (helper.addWorkshop(selected_conference_id, selected_session_id, newSessionName, newLectureStartTime, newLectureDuration, newSessionHall)) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Succesfully added item to agenda.");
+        } else {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error occured while adding item to agenda.");
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+    }
+
+    public List<SelectItem> getLectures() {
+
+        List<data.Sessions> ses = helper.getSessions(selected_conference_id);
+
+        //cars
+        List<SelectItem> ret = new ArrayList<>();
+
+        for (data.Sessions s : ses) {
+            SelectItemGroup g1 = new SelectItemGroup(s.getName());
+
+            List<data.Lectures> list = helper.getLectures(s.getId());
+            SelectItem[] select = new SelectItem[list.size()];
+
+            int i = 0;
+            for (data.Lectures l : list) {
+                select[i++] = new SelectItem(l.getId(), l.getTitle());
+            }
+
+            g1.setSelectItems(select);
+
+            ret.add(g1);
+        }
+        return ret;
+    }
+
+    public void addAuthor() {
+        FacesMessage message = null;
+        if (helper.addAuthor(selected_lecture_id, selected_user)) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Succesfully added item to agenda.");
+        } else {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error occured while adding item to agenda.");
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public String getTwitterString(int id) {
+        data.Conferences con = helper.getConference(id);
+        String text = "There is an interesting event " + con.getName() + " at " + con.getPlaces().getName() + ", "
+                + con.getPlaces().getAddress() + ", " + con.getPlaces().getCity() + ", " + con.getPlaces().getState() + ". Check it out.";
+        try {
+            URL url = new URL("https://twitter.com/intent/tweet?text=" + text);
+            URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+            return uri.toString();
+        } catch (Exception e) {
+            return "https://twitter.com/intent/tweet?text=Error";
+        }
+    }
+
+    public void addBlankSession() {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            selected_date = formatter.parse(selected_date_string);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        helper.addBlankSession(selected_conference_id, selected_date);
+
+    }
+
+    public List<data.Sessions> getSessionsForLectures() {
+        List<data.Sessions> ret = getSessions();
+
+        for (int i = 0; i < ret.size();) {
+            if (ret.get(i).getType() == 3 || ret.get(i).getType() == 4) {
+                ret.remove(i);
+            } else {
+                i++;
+            }
+        }
+
+        return ret;
+    }
+
+    public StreamedContent file(byte[] data, String title, String author, char type) {
+        DefaultStreamedContent c = new DefaultStreamedContent(new ByteArrayInputStream(data));
+        //c.setName(getConferenceName()+" - "+getSessionName()+" - "+title+" ("+author+")."+extension);
+        String extension = type == 'd' ? "pdf" : "ppt";
+        c.setName(title + " (" + author + ") (" + extension + ")");
+        c.setContentType("application/" + extension);
+        return c;
+    }
+
+    public void authorIsPrezenting(int id) {
+        helper.isPrezenting(id);
+    }
+
+    public boolean isAuthor(data.Author a) {
+
+        data.User user = a.getUser();
+
+        if (user == null || !user.getUsername().equals(username)) {
+            return false;
+        }
+
+        return true;
+    }
+    
+    private int author_id;
+
+    public int getAuthor_id() {
+        return author_id;
+    }
+
+    public void setAuthor_id(int author_id) {
+        this.author_id = author_id;
+    }
+    
+    byte[] material;
+    boolean material_type = false;
+ 
+    public void material_upload(FileUploadEvent event) {
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        material = event.getFile().getContents();
+        material_type = (event.getFile().getFileName().endsWith(".pdf")?true:false);
+    }
+    
+
+    public String goToUpload(data.Author a) {
+        if (a.getPdf() != null && a.getPpt() != null) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "User already uploaded both ppt and pdf.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return "";
+        }
+        
+        author_id = a.getId();
+        
+        material = null;
+        
+        return "uploadMaterials";
+        
+    }
+    
+    public String uploadMaterials(){
+      
+        if(material == null)
+            return "agenda";
+        
+        if(!helper.addMaterial(author_id, material, material_type)){
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "User already uploaded that type.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+            
+        return "agenda";
+        
+           
+    }
+
 }

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="WEB-INF/template.xhtml">
+
+            <ui:define name="title">
+                Add Conference
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:panelGrid columns="2">
+                        <h:outputText value="Name"/>
+                        <p:inputText value="#{user.addConferenceName}" required="true" requiredMessage="Conference name is required"/>
+
+                        <h:outputText value="Start"/>
+                        <p:calendar value="#{user.addConferenceStart}" pattern="dd-MM-yyyy" required="true" requiredMessage="Start date is required"/>
+
+                        <h:outputText value="End"/>
+                        <p:calendar value="#{user.addConferenceEnd}" pattern="dd-MM-yyyy" required="true" requiredMessage="End date is required"/> 
+                        
+                        <h:outputText value="Application Due Date"/>
+                        <p:calendar value="#{user.addConferenceDue}" pattern="dd-MM-yyyy" required="true" requiredMessage="Application Due Date is required"/> 
+
+                         <h:outputText value="Field"/>
+                         <p:selectOneMenu value="#{user.addConferenceField}" var="t" filter="true" filterMatchMode="contains">
+                                <f:selectItems value="#{user.fields}" var="field" itemLabel="#{field.name}" itemValue="#{field.name}"   />
+
+                                <p:column>
+                                    <h:outputText styleClass="ui-theme ui-theme-#{t}" />
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{t}" />
+                                </p:column>
+                            </p:selectOneMenu>
+                        
+                        <h:outputText value="Location"/>
+                        <p:selectOneMenu  value="#{user.addConferenceLocation}">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{user.getLocations()}" var="l"  itemLabel="#{l.name}, #{l.address}, #{l.city}, #{l.state}" itemValue="#{l.id}" />
+                        </p:selectOneMenu>
+
+
+                    </p:panelGrid>
+                    
+                    <p:commandButton value="Create Conference" action="#{user.addConference()}" ajax="false"/>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

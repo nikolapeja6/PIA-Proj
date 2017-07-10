@@ -44,6 +44,7 @@ Contributor(s):
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/conferences</property>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
@@ -57,6 +58,7 @@ Contributor(s):
     <mapping resource="data/Lectures.hbm.xml"/>
     <mapping resource="data/Applied.hbm.xml"/>
     <mapping resource="data/Sessions.hbm.xml"/>
+    <mapping resource="data/Moderator.hbm.xml"/>
     <mapping resource="data/Agenda.hbm.xml"/>
     <mapping resource="data/Gallery.hbm.xml"/>
     <mapping resource="data/Places.hbm.xml"/>

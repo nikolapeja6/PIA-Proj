@@ -1,5 +1,5 @@
 package data;
-// Generated Jun 26, 2017 8:01:15 PM by Hibernate Tools 4.3.1
+// Generated Jul 7, 2017 7:28:47 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,27 +13,32 @@ public class Conferences  implements java.io.Serializable {
 
 
      private Integer id;
+     private Places places;
      private String name;
      private int field;
      private Date applicationDueDate;
      private Set sessionses = new HashSet(0);
      private Set applieds = new HashSet(0);
+     private Set moderators = new HashSet(0);
 
     public Conferences() {
     }
 
 	
-    public Conferences(String name, int field, Date applicationDueDate) {
+    public Conferences(Places places, String name, int field, Date applicationDueDate) {
+        this.places = places;
         this.name = name;
         this.field = field;
         this.applicationDueDate = applicationDueDate;
     }
-    public Conferences(String name, int field, Date applicationDueDate, Set sessionses, Set applieds) {
+    public Conferences(Places places, String name, int field, Date applicationDueDate, Set sessionses, Set applieds, Set moderators) {
+       this.places = places;
        this.name = name;
        this.field = field;
        this.applicationDueDate = applicationDueDate;
        this.sessionses = sessionses;
        this.applieds = applieds;
+       this.moderators = moderators;
     }
    
     public Integer getId() {
@@ -42,6 +47,13 @@ public class Conferences  implements java.io.Serializable {
     
     public void setId(Integer id) {
         this.id = id;
+    }
+    public Places getPlaces() {
+        return this.places;
+    }
+    
+    public void setPlaces(Places places) {
+        this.places = places;
     }
     public String getName() {
         return this.name;
@@ -77,6 +89,13 @@ public class Conferences  implements java.io.Serializable {
     
     public void setApplieds(Set applieds) {
         this.applieds = applieds;
+    }
+    public Set getModerators() {
+        return this.moderators;
+    }
+    
+    public void setModerators(Set moderators) {
+        this.moderators = moderators;
     }
 
 

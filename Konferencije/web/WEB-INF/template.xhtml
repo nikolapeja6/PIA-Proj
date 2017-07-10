@@ -9,6 +9,14 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title><ui:insert name="title">Title</ui:insert></title>
+
+        <meta property="og:url"           content="http://www.your-domain.com/your-page.html" />
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="Conferences" />
+        <meta property="og:description"   content="Site for organizing conferences." />
+
+
+        
         <style>
             *{
                 font-family: cambria;
@@ -19,15 +27,15 @@
                 margin-right: 20px;
                 overflow: hidden;
                 width: auto;
-                
+
             }
 
             .footer{
                 position: fixed;
                 height: 30px;
-               
+
                 margin-top: 50px;
-               
+
                 bottom: 0;
                 left:0;
                 right:0;
@@ -38,39 +46,40 @@
                 padding-left: 5px;
                 padding-right: 5px;
                 padding-bottom: 5px;
-                
+
             }
-            
+
             table {
-    width: 100%;
-}
-td {
-    vertical-align: top;
-}
-.d1 {
-    text-align: left;
-}
-.d2 {
-    text-align:center;
-}
-.d3 {
-    text-align:right;
-}
-.copy {
-    visibility: hidden;
-}
-.copy, .d3 {
-    white-space: nowrap;
-}
+                width: 100%;
+            }
+            td {
+                vertical-align: top;
+            }
+            .d1 {
+                text-align: left;
+            }
+            .d2 {
+                text-align:center;
+            }
+            .d3 {
+                text-align:right;
+            }
+            .copy {
+                visibility: hidden;
+            }
+            .copy, .d3 {
+                white-space: nowrap;
+            }
 
         </style>
     </h:head>
 
     <h:body>
 
+
         <h:form>
             <p:growl id="error" showDetail="true" sticky="false" showSummary="false" />
-            
+
             <p:menubar>
 
                 <p:menuitem value="#{labels.menu_start_label}" icon="ui-icon-home" action="index.xhtml" rendered="#{user.isLoggedIn() == false}"/>
@@ -78,12 +87,25 @@ td {
                 <p:menuitem value="#{labels.menu_my_conferences_label}" icon="ui-icon-note" action="conferences.xhtml" rendered="#{user.isRegisteredUser()}"/>
 
                 <p:menuitem value="#{labels.menu_messages_label}s" icon="ui-icon-mail-closed" action="messages.xhtml" rendered="#{user.isRegisteredUser()}"/>
-                <p:menuitem value="#{labels.menu_search_label}" icon="ui-icon-search"   action="search.xhtml"/>
+                <p:menuitem value="#{labels.menu_search_label}" icon="ui-icon-search"   action="search.xhtml"  rendered="#{!user.isAdmin()}"/>
+
+                <p:menuitem value="Add conference" icon="ui-icon-plus"   action="addConference.xhtml"  rendered="#{user.isAdmin()}"/>
+                <p:menuitem value="Remove conference" icon="ui-icon-minus"   action="removeConference.xhtml"  rendered="#{user.isAdmin()}"/>
+                <p:menuitem value="Add moderator" icon="ui-icon-person"   action="addModerator.xhtml"  rendered="#{user.isAdmin()}"/>
+
+                <p:menuitem value="Moderating" icon="ui-icon-person"   action="moderator.xhtml"  rendered="#{user.isModerator()}"/>
+
+                <f:facet name="options">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
+                        Facebook
+                    </a>
+                </f:facet>
 
 
                 <f:facet name="options">
                     <p:commandButton  value="#{labels.menu_logout_label}" action="#{user.logout}" icon="ui-icon-extlink" rendered="#{user.isLoggedIn()}" />
                 </f:facet>
+
             </p:menubar>
         </h:form>
 
@@ -92,7 +114,7 @@ td {
             <h1><ui:insert name="title">Title</ui:insert></h1>
             <ui:insert name="content">Content</ui:insert>
         </div>
-        
+
         <br/>
         <br/>
 

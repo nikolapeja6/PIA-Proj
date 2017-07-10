@@ -1,5 +1,5 @@
 package data;
-// Generated Jun 26, 2017 8:01:15 PM by Hibernate Tools 4.3.1
+// Generated Jul 7, 2017 7:28:47 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,6 +17,7 @@ public class Places  implements java.io.Serializable {
      private String address;
      private String name;
      private Set hallses = new HashSet(0);
+     private Set conferenceses = new HashSet(0);
 
     public Places() {
     }
@@ -27,12 +28,13 @@ public class Places  implements java.io.Serializable {
         this.city = city;
         this.name = name;
     }
-    public Places(String state, String city, String address, String name, Set hallses) {
+    public Places(String state, String city, String address, String name, Set hallses, Set conferenceses) {
        this.state = state;
        this.city = city;
        this.address = address;
        this.name = name;
        this.hallses = hallses;
+       this.conferenceses = conferenceses;
     }
    
     public Integer getId() {
@@ -76,6 +78,13 @@ public class Places  implements java.io.Serializable {
     
     public void setHallses(Set hallses) {
         this.hallses = hallses;
+    }
+    public Set getConferenceses() {
+        return this.conferenceses;
+    }
+    
+    public void setConferenceses(Set conferenceses) {
+        this.conferenceses = conferenceses;
     }
 
 

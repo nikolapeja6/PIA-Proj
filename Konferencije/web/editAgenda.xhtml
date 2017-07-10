@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="WEB-INF/template.xhtml">
+            <ui:define name="title">
+                Edit Conference #{user.getConferenceName()}
+            </ui:define>
+
+            <ui:define name="content">
+
+
+
+                <p:accordionPanel activeIndex="-1" >
+                    <p:tab title="Add Blank Session">
+                        <h:form>
+                            <p:panelGrid columns="2">
+                                <h:outputText value="Date"/>
+                                <p:selectOneMenu value="#{user.selected_date_string}" >
+                                    <f:selectItems value="#{user.getSessions()}" var="s" itemLabel="#{s.date}" itemValue="#{s.date}"/>
+                                </p:selectOneMenu>
+
+                            </p:panelGrid>
+
+                            <p:commandButton value="Add" action="#{user.addBlankSession()}" ajax="false"/>
+                        </h:form>
+                    </p:tab>
+
+                    <p:tab title="Add Opening Ceremony">
+                        <h:form>
+                            <p:panelGrid columns="2">
+                                <h:outputText value="Name"/>
+                                <p:inputText value="#{user.newSessionName}"/>
+
+                                <h:outputText value="Hall"/>
+                                <p:selectOneMenu value="#{user.newSessionHall}" >
+                                    <f:selectItems value="#{user.getHalls()}" var="h" itemLabel="#{h.name}" itemValue="#{h.id}"/>
+                                </p:selectOneMenu>
+
+                            </p:panelGrid>
+
+                            <p:commandButton value="Add" action="#{user.addOpeningSession()}" ajax="false"/>
+                        </h:form>
+                    </p:tab>
+                    <p:tab title="Add Closing Ceremony">
+                        <h:form>
+                            <p:panelGrid columns="2">
+                                <h:outputText value="Name"/>
+                                <p:inputText value="#{user.newSessionName}"/>
+
+                                <h:outputText value="Hall"/>
+                                <p:selectOneMenu value="#{user.newSessionHall}" >
+                                    <f:selectItems value="#{user.getHalls()}" var="h" itemLabel="#{h.name}" itemValue="#{h.id}"/>
+                                </p:selectOneMenu>
+
+                            </p:panelGrid>
+
+                            <p:commandButton value="Add" action="#{user.addClosingSession()}" ajax="false"/>
+                        </h:form>
+                    </p:tab>
+                    <p:tab title="Add Session">
+                        <h:form>
+                            <p:panelGrid columns="2">
+                                <h:outputText value="Name"/>
+                                <p:inputText value="#{user.newSessionName}"/>
+
+                                <h:outputText value="Hall"/>
+                                <p:selectOneMenu value="#{user.newSessionHall}" >
+                                    <f:selectItems value="#{user.getHalls()}" var="h" itemLabel="#{h.name}" itemValue="#{h.id}"/>
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Date"/>
+                                <p:selectOneMenu value="#{user.selected_session_id}" >
+                                    <f:selectItems value="#{user.getUnknownSessions()}" var="s" itemLabel="#{s.date}" itemValue="#{s.id}"/>
+                                </p:selectOneMenu>
+
+                            </p:panelGrid>
+
+                            <p:commandButton value="Add" action="#{user.addLectureSession()}" ajax="false"/>
+                        </h:form>
+                    </p:tab>
+                    <p:tab title="Add Workshop">
+                        <h:form>
+                            <p:panelGrid columns="2">
+                                <h:outputText value="Name"/>
+                                <p:inputText value="#{user.newSessionName}"/>
+
+                                <h:outputText value="Hall"/>
+                                <p:selectOneMenu value="#{user.newSessionHall}" >
+                                    <f:selectItems value="#{user.getHalls()}" var="h" itemLabel="#{h.name}" itemValue="#{h.id}"/>
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Date"/>
+                                <p:selectOneMenu value="#{user.selected_session_id}" >
+                                    <f:selectItems value="#{user.getUnknownSessions()}" var="s" itemLabel="#{s.date}" itemValue="#{s.id}"/>
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Start Time"/>
+                                <p:calendar id="time" value="#{user.newLectureStartTime}" pattern="HH:mm" timeOnly="true"  />
+
+                                <h:outputText value="Duration [minutes]"/>
+                                <p:inputNumber  value="#{user.newLectureDuration}" decimalPlaces="0"/>  
+
+
+                            </p:panelGrid>
+
+                            <p:commandButton value="Add" action="#{user.addWorkshop()}" ajax="false"/>
+                        </h:form>
+
+                    </p:tab>
+
+
+
+                    <p:tab title="Add Lecture to Session">
+                        <h:form>
+
+                            <p:panelGrid columns="2">
+
+                                <h:outputText value="Session"/>
+                                <p:selectOneMenu value="#{user.selected_session_id}" >
+                                    <f:selectItems value="#{user.getSessionsForLectures()}" var="s" itemLabel="#{s.name}" itemValue="#{s.id}"/>
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Title"/>
+                                <p:inputText value="#{user.newLectureName}" required="true"/>
+
+                                <h:outputText value="Start Time"/>
+                                <p:calendar id="time" value="#{user.newLectureStartTime}" pattern="HH:mm" timeOnly="true"  />
+
+                                <h:outputText value="Duration [minutes]"/>
+                                <p:inputNumber  value="#{user.newLectureDuration}" decimalPlaces="0"/>  
+                            </p:panelGrid>
+
+                            <p:commandButton value="Add" action="#{user.addLecture}" ajax="false"/>
+
+
+                        </h:form>
+
+                    </p:tab>
+
+                    <p:tab title="Add Author">
+                        <h:form>
+                            <p:panelGrid columns="2">
+                                <h:outputText value="Lecture/Workshop"/>
+                                <p:selectOneMenu value="#{user.selected_lecture_id}" >
+                                    <f:selectItems value="#{user.getLectures()}" />
+                                </p:selectOneMenu>
+
+                                <h:outputText value="User"/>
+                                <p:selectOneMenu value="#{user.selected_user}" effect="fold" editable="true">
+                                    <f:selectItems value="#{user.getUsers()}"/>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+
+                            <p:commandButton value="Add Author" action="#{user.addAuthor()}" ajax="false"/>
+
+                        </h:form>
+                    </p:tab>
+
+
+                </p:accordionPanel>
+
+
+
+                <h2>Display of #{user.getConferenceData()}</h2>
+
+               <p:repeat value="#{user.getSessions()}" var="s">
+
+                    <h3>#{s.name } [hall]</h3>
+                    <h4>#{s.date}</h4>
+
+                    <p:dataTable value="#{user.sortLectures(s.id)}" var="l" style="text-align: center;  max-width: 1500px ">
+                        <p:column headerText="Title">
+                            #{l.title}
+                        </p:column>
+
+                        <p:column headerText="Start">
+                            #{l.start}
+                        </p:column>
+
+                        <p:column headerText="Duration">
+                            #{l.duration}
+                        </p:column>
+
+                        <p:column headerText="Authors">
+
+                            <p:repeat value="#{user.getAuthors(l.id)}" var="a">
+                          <p:outputLabel style="color: blue" value="#{a.name}" rendered="#{a.isPrezenting == 1}"/>
+                                <p:outputLabel style="color: black" value="#{a.name}" rendered="#{a.isPrezenting == 0}"/>&nbsp;
+                                <h:form>
+                                    <p:commandButton value="pdf" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" disabled="#{a.pdf==null}" rendered="#{a.isPrezenting == 1}">
+                                        <p:fileDownload value="#{user.file(a.pdf, l.title, a.name, 'd')}"  monitorKey="true"  />
+                                    </p:commandButton>
+                                    &nbsp;
+                                    <p:commandButton value="ppt" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" disabled="#{a.ppt==null}" rendered="#{a.isPrezenting == 1}">
+                                        <p:fileDownload value="#{user.file(a.ppt, l.title, a.name, 'p')}" />
+                                    </p:commandButton>
+                                </h:form>
+                                <hr/>
+                            </p:repeat>
+
+                        </p:column>
+                        
+                        
+
+                    </p:dataTable>
+
+
+                    <hr />
+                </p:repeat>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

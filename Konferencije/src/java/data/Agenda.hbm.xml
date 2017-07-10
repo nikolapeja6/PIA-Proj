@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 26, 2017 8:01:16 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jul 7, 2017 7:28:48 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="data.Agenda" table="agenda" catalog="conferences" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
@@ -14,16 +14,16 @@
         <many-to-one name="sessions" class="data.Sessions" fetch="select">
             <column name="session" not-null="true" />
         </many-to-one>
-        <property name="liked" type="java.lang.Byte">
-            <column name="liked">
-                <comment>0 - dislike, 1 - like</comment>
+        <property name="liked" type="byte">
+            <column name="liked" not-null="true">
+                <comment>0 - neutral, 1 - like, 2 - dislike</comment>
             </column>
         </property>
         <property name="comment" type="string">
             <column name="comment" length="65535" />
         </property>
-        <property name="grade" type="java.lang.Byte">
-            <column name="grade">
+        <property name="grade" type="byte">
+            <column name="grade" not-null="true">
                 <comment>from 1 to 5, 5 being the gratest</comment>
             </column>
         </property>

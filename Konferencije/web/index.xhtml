@@ -110,12 +110,13 @@
 
                                     
                     <p:row>
-                        <p:fileUpload value="#{user.file}" mode="simple" skinSimple="true"  label="#{labels.profile_picture_label}" />
+                        <p:fileUpload fileUploadListener="#{user.file_upload}" mode="advanced" dragDropSupport="true"
+                            fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
                     </p:row>
                
                         <br/>
                    <p:row >
-                       <p:commandButton  value="#{labels.register_label}" ajax="true"  styleClass="ui-priority-primary"  action="#{user.register}" /> 
+                       <p:commandButton  value="#{labels.register_label}" ajax="false"  styleClass="ui-priority-primary"  action="#{user.register}" /> 
                       </p:row>
        
             </h:panelGrid>

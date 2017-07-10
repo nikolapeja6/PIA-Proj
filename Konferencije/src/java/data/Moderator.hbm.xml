@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 7, 2017 7:28:48 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="data.Moderator" table="moderator" catalog="conferences" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="conferences" class="data.Conferences" fetch="select">
+            <column name="conference" not-null="true" />
+        </many-to-one>
+        <many-to-one name="user" class="data.User" fetch="select">
+            <column name="user" length="30" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

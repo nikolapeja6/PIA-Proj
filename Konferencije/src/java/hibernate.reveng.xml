@@ -41,16 +41,17 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="conferences"/>
-  <table-filter match-name="user"/>
   <table-filter match-name="conferences"/>
-  <table-filter match-name="applied"/>
+  <table-filter match-name="moderator"/>
+  <table-filter match-name="gallery"/>
   <table-filter match-name="sessions"/>
+  <table-filter match-name="agenda"/>
+  <table-filter match-name="places"/>
+  <table-filter match-name="applied"/>
+  <table-filter match-name="messages"/>
   <table-filter match-name="author"/>
   <table-filter match-name="halls"/>
-  <table-filter match-name="agenda"/>
-  <table-filter match-name="favourite"/>
-  <table-filter match-name="messages"/>
-  <table-filter match-name="gallery"/>
-  <table-filter match-name="places"/>
+  <table-filter match-name="user"/>
   <table-filter match-name="lectures"/>
+  <table-filter match-name="favourite"/>
 </hibernate-reverse-engineering>

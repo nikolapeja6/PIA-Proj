@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="WEB-INF/template.xhtml">
+            <ui:define name="title">
+                Gallery for #{user.getConferenceName()}
+            </ui:define>
+
+            <ui:define name="content">
+
+
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="#{user.getConferenceName()}" action="#{user.conrefenceDisplay}" ajax="false"/>
+                        <p:menuitem value="#{user.selected_date}" action="#{user.dayDisplay()}" rendered="#{user.selected_date != null}" ajax="false"/>
+                        <p:menuitem value="#{user.getSessionName()}" url="#" rendered="#{user.selected_session_id != -1}" ajax="false"/>
+                    </p:breadCrumb>
+                </h:form>
+
+                <br/>
+
+
+                <h:form>
+
+
+                    <p:panel  header="Day of Conference" style="margin-bottom:20px" rendered="#{user.selected_date == null}">
+                        <p:repeat value="#{user.getConferenceDays()}" var="d">
+                            <p:commandLink value="#{d}" action="#{user.setSelected_date(d)}" ajax="false"/>
+                            <br/>
+                        </p:repeat>
+                    </p:panel>
+
+                    <p:panel  header="Sessions on #{user.selected_date}" style="margin-bottom:20px" rendered="#{user.displatSessionPanel()}">
+                        <p:repeat value="#{user.getSessionForDay(user.selected_date)}" var="s">
+                            <p:commandLink value="#{s.name}" action="#{user.setSelected_session_id(s.id)}" ajax="false"/>
+                            <br/>
+                        </p:repeat>
+                    </p:panel>
+
+                    <p:panel header="Images"  style="margin-bottom:20px" rendered="#{user.displayImages()}">
+
+                        <p:repeat value="#{user.getImages()}" var="i">
+                            <p:graphicImage value="#{i}" stream="false"  style="max-width: 200px; max-height:200px"/>
+                            &nbsp; &nbsp;
+                        </p:repeat>
+                    </p:panel>
+                    
+                    <br/>
+                    <br/>
+                    
+                    <p:panel header="Upload Pictures" style="margin-bottom:20px" rendered="#{!(!user.displayImages() ||   !user.isModerator())}">
+                        <p:fileUpload fileUploadListener="#{user.upload_pictures}" mode="advanced" dragDropSupport="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="max-width: 700px" /> 
+          
+
+                    <br/>
+
+                    <p:commandButton value="Submit" action="#{user.uploadPictures()}" ajax="false"/>
+                    </p:panel>
+
+
+
+                </h:form>
+
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

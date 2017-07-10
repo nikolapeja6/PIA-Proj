@@ -1,5 +1,5 @@
 package data;
-// Generated Jun 26, 2017 8:01:15 PM by Hibernate Tools 4.3.1
+// Generated Jul 7, 2017 7:28:47 PM by Hibernate Tools 4.3.1
 
 
 
@@ -12,19 +12,21 @@ public class Agenda  implements java.io.Serializable {
      private Integer id;
      private Applied applied;
      private Sessions sessions;
-     private Byte liked;
+     private byte liked;
      private String comment;
-     private Byte grade;
+     private byte grade;
 
     public Agenda() {
     }
 
 	
-    public Agenda(Applied applied, Sessions sessions) {
+    public Agenda(Applied applied, Sessions sessions, byte liked, byte grade) {
         this.applied = applied;
         this.sessions = sessions;
+        this.liked = liked;
+        this.grade = grade;
     }
-    public Agenda(Applied applied, Sessions sessions, Byte liked, String comment, Byte grade) {
+    public Agenda(Applied applied, Sessions sessions, byte liked, String comment, byte grade) {
        this.applied = applied;
        this.sessions = sessions;
        this.liked = liked;
@@ -53,11 +55,11 @@ public class Agenda  implements java.io.Serializable {
     public void setSessions(Sessions sessions) {
         this.sessions = sessions;
     }
-    public Byte getLiked() {
+    public byte getLiked() {
         return this.liked;
     }
     
-    public void setLiked(Byte liked) {
+    public void setLiked(byte liked) {
         this.liked = liked;
     }
     public String getComment() {
@@ -67,11 +69,11 @@ public class Agenda  implements java.io.Serializable {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    public Byte getGrade() {
+    public byte getGrade() {
         return this.grade;
     }
     
-    public void setGrade(Byte grade) {
+    public void setGrade(byte grade) {
         this.grade = grade;
     }
 

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -13,6 +14,8 @@
 
             <ui:define name="content">
 
+               
+
                 <h2>#{user.getConferenceData()}</h2>
 
                 <p:repeat value="#{user.getSessions()}" var="s">
@@ -20,7 +23,7 @@
                     <h3>#{s.name } [hall]</h3>
                     <h4>#{s.date}</h4>
 
-                    <p:dataTable value="#{user.sortLectures(s.id)}" var="l" style="text-align: center;  max-width: 1000px ">
+                    <p:dataTable value="#{user.sortLectures(s.id)}" var="l" style="text-align: center;  max-width: 1500px ">
                         <p:column headerText="Title">
                             #{l.title}
                         </p:column>
@@ -34,22 +37,37 @@
                         </p:column>
 
                         <p:column headerText="Authors">
-                            <table>
-                                <p:repeat value="#{user.getAuthors(l.id)}" var="a">
-                                    <td>#{a.name}</td>
-                                    <td>pdf</td>
-                                    <td>ppt</td>
-                                </p:repeat>
-                            </table>
+
+                            <p:repeat value="#{user.getAuthors(l.id)}" var="a">
+                                <p:outputLabel style="color: blue" value="#{a.name}" rendered="#{a.isPrezenting == 1}"/>
+                                <p:outputLabel style="color: black" value="#{a.name}" rendered="#{a.isPrezenting == 0}"/>&nbsp;
+                                <h:form>
+                                    <p:commandButton value="pdf" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" disabled="#{a.pdf==null}" rendered="#{a.isPrezenting == 1}">
+                                        <p:fileDownload value="#{user.file(a.pdf, l.title, a.name, 'd')}"  monitorKey="true"  />
+                                    </p:commandButton>
+                                    &nbsp;
+                                    <p:commandButton value="ppt" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" disabled="#{a.ppt==null}" rendered="#{a.isPrezenting == 1}">
+                                        <p:fileDownload value="#{user.file(a.ppt, l.title, a.name, 'p')}" />
+                                    </p:commandButton>
+                                      &nbsp;
+                                    <p:commandButton value="I am prezenting" action="#{user.authorIsPrezenting(a.id)}" rendered="#{user.isAuthor(a)}" disabled="#{a.isPrezenting == 1}" ajax="false"/>
+                                      &nbsp;
+                                      <p:commandButton value="Upload Materials" action="#{user.goToUpload(a)}" rendered="#{user.isAuthor(a)}" disabled="#{a.isPrezenting == 0 }"/>
+                                </h:form>
+                                <hr/>
+                            </p:repeat>
+
                         </p:column>
                         
+                        
+
                     </p:dataTable>
-                    
+
                     <br/>
-                    
-                      <h:form>
-                                <p:commandButton value="Add to My Agenda" action="#{user.addToMyAgenda(s.id)}" ajax="false"/>
-                       </h:form>
+
+                    <h:form>
+                        <p:commandButton value="Add to My Agenda" action="#{user.addToMyAgenda(s.id)}" ajax="false"/>
+                    </h:form>
 
                     <hr />
                 </p:repeat>
